@@ -43,7 +43,7 @@ async function checkForAppointments() {
             type: 'basic',
             iconUrl: 'icon.png',
             title: 'Berlin Termin Available!',
-            message: `${count-1} appointments found! Click to open.`,
+            message: `${count-2} appointments found! Click to open.`,
             priority: 2
           });
           
