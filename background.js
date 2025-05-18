@@ -1,7 +1,6 @@
 // Background script to check for appointments even when not on the website
 const TARGET_URL = 'https://service.berlin.de/dienstleistung/351180/';
-const CHECK_INTERVAL = 30 * 1000; // 30 seconds in milliseconds
-
+const CHECK_INTERVAL = 0.5; // 30 seconds in minutes for alarms API
 
 // Keep track of the last time we found appointments to avoid duplicate alerts
 let lastAlertTime = 0;
@@ -65,8 +64,32 @@ chrome.notifications.onClicked.addListener(() => {
   chrome.tabs.create({ url: TARGET_URL });
 });
 
+// Function to set up the alarm
+function setupAlarm() {
+  chrome.alarms.create('checkAppointments', {
+    periodInMinutes: CHECK_INTERVAL
+  });
+}
+
+// Listen for alarm events
+chrome.alarms.onAlarm.addListener((alarm) => {
+  if (alarm.name === 'checkAppointments') {
+    checkForAppointments();
+  }
+});
+
 // Check immediately when extension is loaded
 checkForAppointments();
 
-// Set up periodic checking
-setInterval(checkForAppointments, CHECK_INTERVAL);
+// Set up the alarm for periodic checking
+setupAlarm();
+
+// Re-register the alarm when the service worker wakes up
+chrome.runtime.onStartup.addListener(() => {
+  setupAlarm();
+});
+
+// Also re-register on installation
+chrome.runtime.onInstalled.addListener(() => {
+  setupAlarm();
+});
