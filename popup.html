@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Berlin Termin Checker</title>
+  <style>
+    body {
+      width: 300px;
+      padding: 10px;
+      font-family: Arial, sans-serif;
+    }
+    button {
+      margin-top: 10px;
+      padding: 5px 10px;
+      background-color: #4285f4;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #3367d6;
+    }
+    .status {
+      margin-top: 10px;
+      padding: 5px;
+      background-color: #e8f0fe;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Berlin Termin Checker</h2>
+  <p>Checking for appointments every 30 seconds</p>
+  <div class="status" id="status">Initializing...</div>
+  <button id="test-sound">Test Sound</button>
+  <script src="popup.js"></script>
+</body>
+</html>
